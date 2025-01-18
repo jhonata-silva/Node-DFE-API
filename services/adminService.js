@@ -1,12 +1,14 @@
 const db = require('../db/database');
 const Admin = require('../models/adminModel');
+const { hashPassword, verifyPassword } = require('../middlewares/auth');
 
 class AdminService {
     static createAdmin(nome, email, senha, callback) {
+        const hashedPassword = hashPassword(senha);
         const query = `INSERT INTO administradores (nome, email, senha) VALUES (?, ?, ?)`;
-        db.run(query, [nome, email, senha], function(err) {
+        db.run(query, [nome, email, hashedPassword], function(err) {
             if (err) return callback(err);
-            callback(null, new Admin(this.lastID, nome, email, senha));
+            callback(null, new Admin(this.lastID, nome, email, hashedPassword));
         });
     }
 
@@ -29,10 +31,11 @@ class AdminService {
     }
 
     static updateAdmin(id, nome, email, senha, callback) {
+        const hashedPassword = hashPassword(senha);
         const query = `UPDATE administradores SET nome = ?, email = ?, senha = ? WHERE id = ?`;
-        db.run(query, [nome, email, senha, id], function(err) {
+        db.run(query, [nome, email, hashedPassword, id], function(err) {
             if (err) return callback(err);
-            callback(null, new Admin(id, nome, email, senha));
+            callback(null, new Admin(id, nome, email, hashedPassword));
         });
     }
 
@@ -41,6 +44,17 @@ class AdminService {
         db.run(query, [id], function(err) {
             if (err) return callback(err);
             callback(null);
+        });
+    }
+
+    static validateLogin(email, senha, callback) {
+        const query = `SELECT * FROM administradores WHERE email = ?`;
+        db.get(query, [email], (err, row) => {
+            if (err) return callback(err);
+            if (!row) return callback(new Error('Administrador não encontrado'));
+            const isPasswordValid = verifyPassword(senha, row.senha);
+            if (!isPasswordValid) return callback(new Error('Senha inválida'));
+            callback(null, new Admin(row.id, row.nome, row.email, row.senha));
         });
     }
 }

@@ -60,6 +60,8 @@ const productController = require('../controllers/productController');
  *   post:
  *     summary: Cria um novo produto
  *     tags: [Produtos]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -84,6 +86,8 @@ router.post('/produto', productController.createProduct);
  *   get:
  *     summary: Retorna a lista de todos os produtos
  *     tags: [Produtos]
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Lista de produtos
@@ -104,6 +108,8 @@ router.get('/produtos', productController.getAllProducts);
  *   get:
  *     summary: Retorna um produto pelo ID
  *     tags: [Produtos]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -129,6 +135,8 @@ router.get('/produto/:id', productController.getProductById);
  *   put:
  *     summary: Atualiza um produto pelo ID
  *     tags: [Produtos]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -160,6 +168,8 @@ router.put('/produto/:id', productController.updateProduct);
  *   delete:
  *     summary: Deleta um produto pelo ID
  *     tags: [Produtos]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id

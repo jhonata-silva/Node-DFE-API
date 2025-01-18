@@ -45,6 +45,8 @@ const adminController = require('../controllers/adminController');
  *   post:
  *     summary: Cria um novo administrador
  *     tags: [Administradores]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -69,6 +71,8 @@ router.post('/admin', adminController.createAdmin);
  *   get:
  *     summary: Retorna a lista de todos os administradores
  *     tags: [Administradores]
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Lista de administradores
@@ -89,6 +93,8 @@ router.get('/admins', adminController.getAllAdmins);
  *   get:
  *     summary: Retorna um administrador pelo ID
  *     tags: [Administradores]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -114,6 +120,8 @@ router.get('/admin/:id', adminController.getAdminById);
  *   put:
  *     summary: Atualiza um administrador pelo ID
  *     tags: [Administradores]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -145,6 +153,8 @@ router.put('/admin/:id', adminController.updateAdmin);
  *   delete:
  *     summary: Deleta um administrador pelo ID
  *     tags: [Administradores]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
