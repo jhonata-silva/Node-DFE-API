@@ -7,7 +7,7 @@ const adminRoutes = require('./routes/adminRoutes');
 const productRoutes = require('./routes/productRoutes');
 const { verifyToken } = require('./middlewares/auth');
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 
 // Middleware para parsear JSON no corpo das requisições
 app.use(express.json());
